@@ -6,26 +6,28 @@
 
 <div class="features">
 
-    <div class="card">
-        <img src="/images/organization1.jpg" alt="Community volunteers" class="organization-image">
+    <% organizations.forEach(org => { %>
 
-        <h3>Community Volunteers</h3>
+        <div class="card">
 
-        <p>
-            Volunteers working together to improve neighborhoods through
-            clean-up projects and community outreach.
-        </p>
-    </div>
+            <img
+                src="/images/<%= org.logo_filename %>"
+                alt="<%= org.name %>"
+                class="organization-image"
+            >
 
-    <div class="card">
-        <img src="/images/organization2.jpg" alt="Food bank volunteers" class="organization-image">
+            <h3><%= org.name %></h3>
 
-        <h3>Food Bank</h3>
+            <p><%= org.description %></p>
 
-        <p>
-            Helping provide meals and essential supplies to families in need.
-        </p>
-    </div>
+            <p>
+                <strong>Contact:</strong>
+                <%= org.contact_email %>
+            </p>
+
+        </div>
+
+    <% }) %>
 
 </div>
 

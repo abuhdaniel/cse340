@@ -2,11 +2,22 @@
 
 <h2><%= title %></h2>
 
-<ul>
-    <li>Neighborhood Cleanup</li>
-    <li>Food Drive</li>
-    <li>Tree Planting</li>
-    <li>School Tutoring</li>
-</ul>
+<p>Browse our current service projects.</p>
+
+<div class="features">
+
+<% projects.forEach(project => { %>
+
+<div class="card">
+
+<h3><%= project.name %></h3>
+
+<p><%= project.description %></p>
+
+</div>
+
+<% }) %>
+
+</div>
 
 <%- include("partials/footer") %>

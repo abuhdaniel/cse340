@@ -3,10 +3,10 @@ import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
 
-// Models
-import { getAllOrganizations } from "./src/models/organizations.js";
-import { getAllProjects } from "./src/models/projects.js";
-import { getAllCategories } from "./src/models/categories.js";
+// Import Route Files
+import organizationRoutes from "./routes/organizationRoute.js";
+import projectRoutes from "./routes/projectRoute.js";
+import categoryRoutes from "./routes/categoryRoute.js";
 
 dotenv.config();
 
@@ -17,88 +17,60 @@ const port = process.env.PORT || 3000;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Set EJS as the view engine
+// View Engine
 app.set("view engine", "ejs");
 
-// Set views folder
+// Views Folder
 app.set("views", path.join(__dirname, "views"));
 
-// Serve static files
+// Static Files
 app.use(express.static(path.join(__dirname, "public")));
 
-// =======================
-// Home
-// =======================
+// Parse Form Data
+app.use(express.urlencoded({ extended: true }));
+
+// Parse JSON
+app.use(express.json());
+
+// =====================
+// Home Page
+// =====================
 app.get("/", (req, res) => {
-    res.render("index", {
-        title: "Home",
-    });
+  res.render("index", {
+    title: "Home",
+  });
 });
 
-// =======================
-// Organizations
-// =======================
-app.get("/organizations", async (req, res) => {
-    try {
-        const organizations = await getAllOrganizations();
+// =====================
+// Routes
+// =====================
+app.use("/", organizationRoutes);
+app.use("/", projectRoutes);
+app.use("/", categoryRoutes);
 
-        res.render("organizations", {
-            title: "Organizations",
-            organizations,
-        });
-
-    } catch (error) {
-        console.error("Organization Error:", error);
-        res.status(500).send("Database Error");
-    }
-});
-
-// =======================
-// Projects
-// =======================
-app.get("/projects", async (req, res) => {
-    try {
-        const projects = await getAllProjects();
-
-        res.render("projects", {
-            title: "Service Projects",
-            projects,
-        });
-
-    } catch (error) {
-        console.error("Project Error:", error);
-        res.status(500).send("Database Error");
-    }
-});
-
-// =======================
-// Categories
-// =======================
-app.get("/categories", async (req, res) => {
-    try {
-        const categories = await getAllCategories();
-
-        res.render("categories", {
-            title: "Service Project Categories",
-            categories,
-        });
-
-    } catch (error) {
-        console.error("Category Error:", error);
-        res.status(500).send("Database Error");
-    }
-});
-
-// =======================
-// 404 Page
-// =======================
+// =====================
+// 404 Error
+// =====================
 app.use((req, res) => {
-    res.status(404).send("404 - Page Not Found");
+  res.status(404).render("404", {
+    title: "404 - Page Not Found",
+  });
 });
 
-// =======================
+// =====================
+// 500 Error
+// =====================
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+
+  res.status(500).render("500", {
+    title: "500 - Internal Server Error",
+  });
+});
+
+// =====================
 // Start Server
-// =======================
+// =====================
 app.listen(port, () => {
-    console.log(`✅ Server running at http://localhost:${port}`);
+  console.log(`✅ Server running at http://localhost:${port}`);
 });

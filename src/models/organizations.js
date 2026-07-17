@@ -1,5 +1,8 @@
 import db from "./db.js";
 
+/**
+ * Get all organizations
+ */
 const getAllOrganizations = async () => {
   const query = `
     SELECT
@@ -8,7 +11,8 @@ const getAllOrganizations = async () => {
       description,
       contact_email,
       logo_filename
-    FROM organization;
+    FROM organization
+    ORDER BY name;
   `;
 
   const result = await db.query(query);
@@ -16,4 +20,27 @@ const getAllOrganizations = async () => {
   return result.rows;
 };
 
-export { getAllOrganizations };
+/**
+ * Get a single organization by ID
+ */
+const getOrganizationById = async (id) => {
+  const query = `
+    SELECT
+      organization_id,
+      name,
+      description,
+      contact_email,
+      logo_filename
+    FROM organization
+    WHERE organization_id = $1;
+  `;
+
+  const result = await db.query(query, [id]);
+
+  return result.rows[0];
+};
+
+export {
+  getAllOrganizations,
+  getOrganizationById
+};

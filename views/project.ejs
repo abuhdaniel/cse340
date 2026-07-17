@@ -1,0 +1,35 @@
+<%- include("partials/header") %>
+
+<h2><%= project.name %></h2>
+
+<div class="card">
+
+    <p>
+        <%= project.description %>
+    </p>
+
+    <p>
+        <strong>Organization:</strong>
+
+        <a href="/organization/<%= project.organization_id %>">
+            <%= project.organization_name %>
+        </a>
+    </p>
+
+    <h3>Categories</h3>
+
+    <div class="categories">
+
+        <% categories.forEach(category => { %>
+
+            <a href="/category/<%= category.category_id %>" class="tag">
+                <%= category.name %>
+            </a>
+
+        <% }) %>
+
+    </div>
+
+</div>
+
+<%- include("partials/footer") %>

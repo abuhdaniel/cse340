@@ -1,36 +1,51 @@
-/* Reset */
+/* =====================================================
+   GLOBAL RESET
+===================================================== */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Body */
+html {
+    scroll-behavior: smooth;
+}
+
+/* =====================================================
+   BODY
+===================================================== */
 body {
     font-family: Arial, Helvetica, sans-serif;
     background-color: #f4f6f9;
     color: #333;
-    line-height: 1.6;
+    line-height: 1.7;
 }
 
-/* Header */
+/* =====================================================
+   HEADER
+===================================================== */
 header {
     background: #004080;
     color: white;
-    padding: 20px;
+    padding: 25px 20px;
     text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,.15);
 }
 
 header h1 {
     margin-bottom: 15px;
+    font-size: 2rem;
 }
 
-/* Navigation */
+/* =====================================================
+   NAVIGATION
+===================================================== */
 nav ul {
     list-style: none;
     display: flex;
     justify-content: center;
-    gap: 20px;
+    align-items: center;
+    gap: 25px;
     flex-wrap: wrap;
 }
 
@@ -38,123 +53,265 @@ nav a {
     color: white;
     text-decoration: none;
     font-weight: bold;
+    transition: color .3s ease;
 }
 
 nav a:hover {
     color: #ffd700;
 }
 
-/* Main */
+/* =====================================================
+   MAIN CONTENT
+===================================================== */
 main {
     max-width: 1100px;
-    margin: auto;
-    padding: 30px 20px;
+    margin: 40px auto;
+    padding: 0 20px;
 }
 
-/* Hero */
-.hero {
-    text-align: center;
-    padding: 40px 20px;
-}
-
-.hero h2 {
+/* =====================================================
+   HEADINGS
+===================================================== */
+h1,
+h2,
+h3 {
     color: #004080;
     margin-bottom: 15px;
 }
 
-.hero p {
-    margin-bottom: 20px;
+section {
+    margin-bottom: 40px;
 }
 
-/* Button */
+/* =====================================================
+   LINKS
+===================================================== */
+a {
+    color: #004080;
+    transition: .3s;
+}
+
+a:hover {
+    color: #0066cc;
+}
+
+/* =====================================================
+   HERO SECTION
+===================================================== */
+.hero {
+    text-align: center;
+    padding: 50px 20px;
+}
+
+.hero p {
+    margin-bottom: 25px;
+    font-size: 1.05rem;
+}
+
+/* =====================================================
+   BUTTONS
+===================================================== */
 .btn {
     display: inline-block;
     background: #004080;
     color: white;
     text-decoration: none;
-    padding: 12px 24px;
-    border-radius: 5px;
-    transition: 0.3s;
+    padding: 12px 28px;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: all .3s ease;
 }
 
 .btn:hover {
     background: #0066cc;
+    transform: translateY(-2px);
+    color: white;
 }
 
-/* Cards */
+/* =====================================================
+   FEATURE GRID
+===================================================== */
 .features {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 25px;
     margin-top: 40px;
 }
 
+/* =====================================================
+   CARDS
+===================================================== */
 .card {
     background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 3px 10px rgba(0,0,0,.1);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0,0,0,.08);
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 28px rgba(0,0,0,.15);
 }
 
 .card h3 {
-    color: #004080;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 
-/* Lists */
+.card p {
+    margin-bottom: 15px;
+}
+
+/* =====================================================
+   ORGANIZATION IMAGE
+===================================================== */
+.organization-image {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,.15);
+}
+
+/* =====================================================
+   LISTS
+===================================================== */
 ul {
-    margin-top: 20px;
-    margin-left: 20px;
+    margin: 20px 0;
+    padding-left: 22px;
 }
 
 li {
-    margin-bottom: 10px;
+    margin-bottom: 12px;
 }
 
-/* Footer */
-footer {
-    background: #004080;
-    color: white;
-    text-align: center;
-    padding: 20px;
-    margin-top: 40px;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-
-    nav ul {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .hero {
-        padding: 20px;
-    }
-
-}.organization-image {
-    width: 100%;
-    height: 220px;
-    object-fit: cover;
-    border-radius: 8px;
-    margin-bottom: 15px;
-}
+/* =====================================================
+   CATEGORY TAGS
+===================================================== */
 .categories {
-    margin-top: 15px;
+    margin-top: 20px;
 }
 
 .tag {
     display: inline-block;
-    background-color: #0b5ed7;
-    color: #fff;
+    background: linear-gradient(135deg, #0b5ed7, #004080);
+    color: white;
     text-decoration: none;
-    padding: 6px 12px;
-    margin: 4px;
-    border-radius: 20px;
-    font-size: 0.9rem;
-    transition: background-color 0.3s ease;
+    padding: 8px 14px;
+    margin: 5px;
+    border-radius: 25px;
+    font-size: .9rem;
+    font-weight: bold;
+    transition: all .3s ease;
 }
 
 .tag:hover {
-    background-color: #084298;
+    background: linear-gradient(135deg, #0066cc, #002f6c);
+    transform: scale(1.05);
+    color: white;
+}
+
+/* =====================================================
+   TABLES (Future Ready)
+===================================================== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table th,
+table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+}
+
+table th {
+    background: #004080;
+    color: white;
+}
+
+/* =====================================================
+   FORM ELEMENTS
+===================================================== */
+input,
+textarea,
+select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    cursor: pointer;
+}
+
+/* =====================================================
+   FOOTER
+===================================================== */
+footer {
+    background: #003366;
+    color: white;
+    text-align: center;
+    padding: 25px;
+    margin-top: 50px;
+}
+
+/* =====================================================
+   RESPONSIVE DESIGN
+===================================================== */
+@media (max-width: 768px) {
+
+    header h1 {
+        font-size: 1.6rem;
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .hero {
+        padding: 30px 15px;
+    }
+
+    .hero h2 {
+        font-size: 1.6rem;
+    }
+
+    .features {
+        grid-template-columns: 1fr;
+    }
+
+    main {
+        padding: 0 15px;
+    }
+
+    .organization-image {
+        height: 200px;
+    }
+}
+
+/* =====================================================
+   SMALL DEVICES
+===================================================== */
+@media (max-width: 480px) {
+
+    body {
+        font-size: 15px;
+    }
+
+    .btn {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+
+    .tag {
+        display: inline-block;
+        margin-bottom: 8px;
+    }
 }

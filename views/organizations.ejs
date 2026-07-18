@@ -2,7 +2,10 @@
 
 <h2><%= title %></h2>
 
-<p>Explore organizations that are making a positive impact in their communities.</p>
+<p>
+    Explore organizations that are making a positive impact through community
+    service projects.
+</p>
 
 <div class="features">
 
@@ -12,7 +15,7 @@
 
     <img
         src="/images/<%= org.logo_filename %>"
-        alt="<%= org.name %>"
+        alt="<%= org.name %> Logo"
         class="organization-image"
     >
 
@@ -22,11 +25,20 @@
         </a>
     </h3>
 
-    <p><%= org.description %></p>
+    <p>
+        <strong>Description:</strong><br>
+        <%= org.description %>
+    </p>
 
     <p>
-        <strong>Contact:</strong>
+        <strong>Contact Email:</strong><br>
         <%= org.contact_email %>
+    </p>
+
+    <p>
+        <a class="button" href="/organization/<%= org.organization_id %>">
+            View Organization
+        </a>
     </p>
 
 </div>

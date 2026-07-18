@@ -1,6 +1,12 @@
-import { getAllOrganizations, getOrganizationById } from "../src/models/organizations.js";
-import { getAllProjects } from "../src/models/projects.js";
+import {
+  getAllOrganizations,
+  getOrganizationById,
+  getProjectsByOrganization,
+} from "../src/models/organizations.js";
 
+/**
+ * Build Organizations List Page
+ */
 const buildOrganizationList = async (req, res) => {
   try {
     const organizations = await getAllOrganizations();
@@ -11,32 +17,42 @@ const buildOrganizationList = async (req, res) => {
     });
   } catch (error) {
     console.error(error);
+
     res.status(500).render("500", {
       title: "Server Error",
+      error,
     });
   }
 };
 
+/**
+ * Build Individual Organization Page
+ */
 const buildOrganizationDetail = async (req, res) => {
   try {
     const id = req.params.id;
 
     const organization = await getOrganizationById(id);
-    const projects = await getAllProjects();
 
-    const organizationProjects = projects.filter(
-      (project) => project.organization_id == id
-    );
+    if (!organization) {
+      return res.status(404).render("404", {
+        title: "Organization Not Found",
+      });
+    }
+
+    const projects = await getProjectsByOrganization(id);
 
     res.render("organization", {
       title: organization.name,
       organization,
-      projects: organizationProjects,
+      projects,
     });
   } catch (error) {
     console.error(error);
+
     res.status(500).render("500", {
       title: "Server Error",
+      error,
     });
   }
 };

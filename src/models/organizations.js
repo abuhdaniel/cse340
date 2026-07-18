@@ -16,7 +16,6 @@ const getAllOrganizations = async () => {
   `;
 
   const result = await db.query(query);
-
   return result.rows;
 };
 
@@ -36,11 +35,31 @@ const getOrganizationById = async (id) => {
   `;
 
   const result = await db.query(query, [id]);
-
   return result.rows[0];
+};
+
+/**
+ * Get all projects belonging to an organization
+ */
+const getProjectsByOrganization = async (organizationId) => {
+  const query = `
+    SELECT
+      project_id,
+      name,
+      description,
+      location,
+      project_date
+    FROM project
+    WHERE organization_id = $1
+    ORDER BY project_date;
+  `;
+
+  const result = await db.query(query, [organizationId]);
+  return result.rows;
 };
 
 export {
   getAllOrganizations,
-  getOrganizationById
+  getOrganizationById,
+  getProjectsByOrganization
 };

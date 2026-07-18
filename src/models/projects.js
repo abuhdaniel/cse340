@@ -9,13 +9,14 @@ const getAllProjects = async () => {
       project_id,
       organization_id,
       name,
-      description
+      description,
+      location,
+      project_date
     FROM project
-    ORDER BY project_id;
+    ORDER BY project_date;
   `;
 
   const result = await db.query(query);
-
   return result.rows;
 };
 
@@ -29,6 +30,8 @@ const getProjectById = async (id) => {
       p.organization_id,
       p.name,
       p.description,
+      p.location,
+      p.project_date,
       o.name AS organization_name
     FROM project p
     JOIN organization o
@@ -37,7 +40,6 @@ const getProjectById = async (id) => {
   `;
 
   const result = await db.query(query, [id]);
-
   return result.rows[0];
 };
 
@@ -49,16 +51,17 @@ const getProjectsByCategory = async (categoryId) => {
     SELECT
       p.project_id,
       p.name,
-      p.description
+      p.description,
+      p.location,
+      p.project_date
     FROM project p
     JOIN project_category pc
       ON p.project_id = pc.project_id
     WHERE pc.category_id = $1
-    ORDER BY p.name;
+    ORDER BY p.project_date;
   `;
 
   const result = await db.query(query, [categoryId]);
-
   return result.rows;
 };
 
@@ -78,7 +81,6 @@ const getCategoriesByProject = async (projectId) => {
   `;
 
   const result = await db.query(query, [projectId]);
-
   return result.rows;
 };
 

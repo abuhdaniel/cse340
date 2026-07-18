@@ -6,14 +6,17 @@
 
     <img
         src="/images/<%= organization.logo_filename %>"
-        alt="<%= organization.name %>"
+        alt="<%= organization.name %> Logo"
         class="organization-image"
     >
 
-    <p><%= organization.description %></p>
+    <p>
+        <strong>Description:</strong><br>
+        <%= organization.description %>
+    </p>
 
     <p>
-        <strong>Email:</strong>
+        <strong>Contact Email:</strong>
         <%= organization.contact_email %>
     </p>
 
@@ -21,22 +24,55 @@
 
 <h3>Service Projects</h3>
 
-<ul>
+<% if (projects.length > 0) { %>
 
-<% projects.forEach(project => { %>
+<div class="features">
 
-<li>
+    <% projects.forEach(project => { %>
 
-<a href="/project/<%= project.project_id %>">
+    <div class="card">
 
-<%= project.name %>
+        <h4>
+            <a href="/project/<%= project.project_id %>">
+                <%= project.name %>
+            </a>
+        </h4>
 
-</a>
+        <p>
+            <strong>Description:</strong><br>
+            <%= project.description %>
+        </p>
 
-</li>
+        <p>
+            <strong>Location:</strong>
+            <%= project.location %>
+        </p>
 
-<% }) %>
+        <p>
+            <strong>Project Date:</strong>
+            <%= new Date(project.project_date).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric"
+            }) %>
+        </p>
 
-</ul>
+        <p>
+            <a class="button" href="/project/<%= project.project_id %>">
+                View Project
+            </a>
+        </p>
+
+    </div>
+
+    <% }) %>
+
+</div>
+
+<% } else { %>
+
+<p>This organization currently has no service projects.</p>
+
+<% } %>
 
 <%- include("partials/footer") %>

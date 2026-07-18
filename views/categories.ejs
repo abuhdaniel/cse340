@@ -2,7 +2,10 @@
 
 <h2><%= title %></h2>
 
-<p>Browse our service project categories.</p>
+<p>
+    Browse our service project categories to discover volunteer opportunities
+    and community initiatives.
+</p>
 
 <div class="features">
 
@@ -15,6 +18,16 @@
             <%= category.name %>
         </a>
     </h3>
+
+    <p>
+        Explore projects related to <strong><%= category.name %></strong>.
+    </p>
+
+    <p>
+        <a class="button" href="/category/<%= category.category_id %>">
+            View Projects
+        </a>
+    </p>
 
 </div>
 

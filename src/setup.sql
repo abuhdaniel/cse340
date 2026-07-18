@@ -16,6 +16,8 @@ CREATE TABLE project (
     organization_id INTEGER NOT NULL,
     name VARCHAR(150) NOT NULL,
     description TEXT NOT NULL,
+    location VARCHAR(150) NOT NULL,
+    project_date DATE NOT NULL,
 
     CONSTRAINT fk_project_org
         FOREIGN KEY (organization_id)
@@ -43,6 +45,10 @@ CREATE TABLE project_category (
         ON DELETE CASCADE
 );
 
+----------------------------------------------------------
+-- ORGANIZATIONS
+----------------------------------------------------------
+
 INSERT INTO organization
 (name, description, contact_email, logo_filename)
 VALUES
@@ -65,41 +71,87 @@ VALUES
 'unityserve-logo.png'
 );
 
+----------------------------------------------------------
+-- PROJECTS
+----------------------------------------------------------
+
 INSERT INTO project
-(organization_id, name, description)
+(
+organization_id,
+name,
+description,
+location,
+project_date
+)
 VALUES
 (
 1,
 'Neighborhood Cleanup',
-'Cleaning streets and public spaces.'
+'Cleaning streets and public spaces.',
+'Port Harcourt',
+'2026-08-15'
+),
+(
+1,
+'Bridge Repair',
+'Repairing damaged community bridges.',
+'Obio-Akpor',
+'2026-09-05'
 ),
 (
 2,
 'Community Garden',
-'Creating gardens to provide fresh produce.'
+'Creating gardens to provide fresh produce.',
+'Port Harcourt',
+'2026-08-25'
+),
+(
+2,
+'Tree Planting Campaign',
+'Planting trees across public schools.',
+'Rumuola',
+'2026-09-20'
 ),
 (
 3,
 'Food Drive',
-'Collecting food donations for families.'
+'Collecting food donations for families.',
+'Oyigbo',
+'2026-08-18'
 ),
 (
 3,
 'School Tutoring',
-'Providing tutoring for local students.'
+'Providing tutoring for local students.',
+'Eleme',
+'2026-10-02'
 );
+
+----------------------------------------------------------
+-- CATEGORIES
+----------------------------------------------------------
 
 INSERT INTO category
 (name)
 VALUES
 ('Environment'),
 ('Education'),
-('Community Service');
+('Community Service'),
+('Infrastructure'),
+('Health');
+
+----------------------------------------------------------
+-- PROJECT CATEGORIES
+----------------------------------------------------------
 
 INSERT INTO project_category
 (project_id, category_id)
 VALUES
-(1,1),
-(2,1),
-(3,3),
-(4,2);
+(1,3),
+(1,4),
+(2,4),
+(3,1),
+(4,1),
+(4,2),
+(5,3),
+(6,2);

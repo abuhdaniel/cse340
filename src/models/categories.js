@@ -13,7 +13,6 @@ const getAllCategories = async () => {
   `;
 
   const result = await db.query(query);
-
   return result.rows;
 };
 
@@ -30,11 +29,34 @@ const getCategoryById = async (id) => {
   `;
 
   const result = await db.query(query, [id]);
-
   return result.rows[0];
+};
+
+/**
+ * Get all projects belonging to a category
+ */
+const getProjectsByCategory = async (categoryId) => {
+  const query = `
+    SELECT
+      p.project_id,
+      p.organization_id,
+      p.name,
+      p.description,
+      p.location,
+      p.project_date
+    FROM project p
+    JOIN project_category pc
+      ON p.project_id = pc.project_id
+    WHERE pc.category_id = $1
+    ORDER BY p.project_date;
+  `;
+
+  const result = await db.query(query, [categoryId]);
+  return result.rows;
 };
 
 export {
   getAllCategories,
-  getCategoryById
+  getCategoryById,
+  getProjectsByCategory
 };

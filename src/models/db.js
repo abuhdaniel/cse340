@@ -7,10 +7,19 @@ const { Pool } = pg;
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
-  ssl:
-    process.env.NODE_ENV === "production"
-      ? { rejectUnauthorized: false }
-      : false,
+  ssl: {
+    rejectUnauthorized: false,
+  },
 });
+
+pool.connect()
+  .then(client => {
+    console.log("✅ Connected to PostgreSQL");
+    client.release();
+  })
+  .catch(err => {
+    console.error("❌ Database connection failed");
+    console.error(err);
+  });
 
 export default pool;

@@ -53,6 +53,24 @@
 
     </div>
 
+    <hr>
+
+    <div class="actions">
+
+        <a href="/edit-project/<%= project.project_id %>" class="button">
+            ✏️ Edit Project
+        </a>
+
+        <a href="/assign-categories/<%= project.project_id %>" class="button">
+            🏷️ Assign Categories
+        </a>
+
+        <a href="/projects" class="button secondary">
+            ⬅ Back to Projects
+        </a>
+
+    </div>
+
 </div>
 
 <%- include("partials/footer") %>

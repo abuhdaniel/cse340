@@ -1,0 +1,96 @@
+<%- include("partials/header") %>
+
+<h2>Create New Project</h2>
+
+<% if (typeof errors !== "undefined" && errors.length > 0) { %>
+<div class="error-message">
+    <ul>
+        <% errors.forEach(error => { %>
+            <li><%= error.msg %></li>
+        <% }) %>
+    </ul>
+</div>
+<% } %>
+
+<form action="/new-project" method="POST" class="form">
+
+    <label for="organization_id">
+        Organization
+    </label>
+
+    <select
+        id="organization_id"
+        name="organization_id"
+        required>
+
+        <option value="">-- Select Organization --</option>
+
+        <% organizations.forEach(org => { %>
+
+            <option
+                value="<%= org.organization_id %>"
+                <%= organization_id == org.organization_id ? "selected" : "" %>>
+
+                <%= org.name %>
+
+            </option>
+
+        <% }) %>
+
+    </select>
+
+    <label for="name">
+        Project Name
+    </label>
+
+    <input
+        type="text"
+        id="name"
+        name="name"
+        value="<%= typeof name !== 'undefined' ? name : '' %>"
+        required
+        maxlength="100">
+
+    <label for="description">
+        Description
+    </label>
+
+    <textarea
+        id="description"
+        name="description"
+        rows="5"
+        required><%= typeof description !== 'undefined' ? description : '' %></textarea>
+
+    <label for="location">
+        Location
+    </label>
+
+    <input
+        type="text"
+        id="location"
+        name="location"
+        value="<%= typeof location !== 'undefined' ? location : '' %>"
+        required>
+
+    <label for="project_date">
+        Project Date
+    </label>
+
+    <input
+        type="date"
+        id="project_date"
+        name="project_date"
+        value="<%= typeof project_date !== 'undefined' ? project_date : '' %>"
+        required>
+
+    <button type="submit">
+        Create Project
+    </button>
+
+    <a href="/projects" class="button">
+        Cancel
+    </a>
+
+</form>
+
+<%- include("partials/footer") %>

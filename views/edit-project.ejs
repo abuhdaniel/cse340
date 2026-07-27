@@ -1,0 +1,94 @@
+<%- include("partials/header") %>
+
+<h2>Edit Project</h2>
+
+<% if (typeof errors !== "undefined" && errors.length > 0) { %>
+<div class="error-message">
+    <ul>
+        <% errors.forEach(error => { %>
+            <li><%= error.msg %></li>
+        <% }) %>
+    </ul>
+</div>
+<% } %>
+
+<form action="/edit-project/<%= project.project_id %>" method="POST" class="form">
+
+    <label for="organization_id">
+        Organization
+    </label>
+
+    <select
+        id="organization_id"
+        name="organization_id"
+        required>
+
+        <% organizations.forEach(org => { %>
+
+            <option
+                value="<%= org.organization_id %>"
+                <%= Number(project.organization_id) === Number(org.organization_id) ? "selected" : "" %>>
+
+                <%= org.name %>
+
+            </option>
+
+        <% }) %>
+
+    </select>
+
+    <label for="name">
+        Project Name
+    </label>
+
+    <input
+        type="text"
+        id="name"
+        name="name"
+        value="<%= project.name %>"
+        maxlength="100"
+        required>
+
+    <label for="description">
+        Description
+    </label>
+
+    <textarea
+        id="description"
+        name="description"
+        rows="5"
+        required><%= project.description %></textarea>
+
+    <label for="location">
+        Location
+    </label>
+
+    <input
+        type="text"
+        id="location"
+        name="location"
+        value="<%= project.location %>"
+        required>
+
+    <label for="project_date">
+        Project Date
+    </label>
+
+    <input
+        type="date"
+        id="project_date"
+        name="project_date"
+        value="<%= project.project_date ? new Date(project.project_date).toISOString().split("T")[0] : "" %>"
+        required>
+
+    <button type="submit">
+        Update Project
+    </button>
+
+    <a href="/project/<%= project.project_id %>" class="button">
+        Cancel
+    </a>
+
+</form>
+
+<%- include("partials/footer") %>

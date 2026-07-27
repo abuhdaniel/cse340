@@ -2,6 +2,8 @@ import express from "express";
 import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
+import session from "express-session";
+import flash from "connect-flash";
 
 // Route Files
 import organizationRoutes from "./routes/organizationRoute.js";
@@ -31,6 +33,29 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+// --------------------------------------------------
+// Session
+// --------------------------------------------------
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET || "cse340-secret-key",
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+
+// --------------------------------------------------
+// Flash Messages
+// --------------------------------------------------
+app.use(flash());
+
+// Make flash messages available to all EJS views
+app.use((req, res, next) => {
+  res.locals.success = req.flash("success");
+  res.locals.error = req.flash("error");
+  next();
+});
 
 // --------------------------------------------------
 // Home Route

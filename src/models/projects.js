@@ -44,6 +44,78 @@ const getProjectById = async (id) => {
 };
 
 /**
+ * Create a new project
+ */
+const createProject = async ({
+  organization_id,
+  name,
+  description,
+  location,
+  project_date,
+}) => {
+  const query = `
+    INSERT INTO project (
+      organization_id,
+      name,
+      description,
+      location,
+      project_date
+    )
+    VALUES ($1, $2, $3, $4, $5)
+    RETURNING *;
+  `;
+
+  const values = [
+    organization_id,
+    name,
+    description,
+    location,
+    project_date,
+  ];
+
+  const result = await db.query(query, values);
+  return result.rows[0];
+};
+
+/**
+ * Update a project
+ */
+const updateProject = async (
+  id,
+  {
+    organization_id,
+    name,
+    description,
+    location,
+    project_date,
+  }
+) => {
+  const query = `
+    UPDATE project
+    SET
+      organization_id = $1,
+      name = $2,
+      description = $3,
+      location = $4,
+      project_date = $5
+    WHERE project_id = $6
+    RETURNING *;
+  `;
+
+  const values = [
+    organization_id,
+    name,
+    description,
+    location,
+    project_date,
+    id,
+  ];
+
+  const result = await db.query(query, values);
+  return result.rows[0];
+};
+
+/**
  * Get all projects in a category
  */
 const getProjectsByCategory = async (categoryId) => {
@@ -66,7 +138,7 @@ const getProjectsByCategory = async (categoryId) => {
 };
 
 /**
- * Get all categories for a project
+ * Get categories assigned to a project
  */
 const getCategoriesByProject = async (projectId) => {
   const query = `
@@ -84,9 +156,55 @@ const getCategoriesByProject = async (projectId) => {
   return result.rows;
 };
 
+/**
+ * Get category IDs assigned to a project
+ */
+const getProjectCategories = async (projectId) => {
+  const query = `
+    SELECT category_id
+    FROM project_category
+    WHERE project_id = $1;
+  `;
+
+  const result = await db.query(query, [projectId]);
+
+  return result.rows.map(row => row.category_id);
+};
+
+/**
+ * Update category assignments for a project
+ */
+const updateProjectCategories = async (projectId, categoryIds) => {
+  await db.query(
+    `DELETE FROM project_category WHERE project_id = $1`,
+    [projectId]
+  );
+
+  if (!categoryIds || categoryIds.length === 0) {
+    return;
+  }
+
+  for (const categoryId of categoryIds) {
+    await db.query(
+      `
+      INSERT INTO project_category (
+        project_id,
+        category_id
+      )
+      VALUES ($1, $2)
+      `,
+      [projectId, categoryId]
+    );
+  }
+};
+
 export {
   getAllProjects,
   getProjectById,
+  createProject,
+  updateProject,
   getProjectsByCategory,
-  getCategoriesByProject
+  getCategoriesByProject,
+  getProjectCategories,
+  updateProjectCategories,
 };

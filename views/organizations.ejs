@@ -7,43 +7,56 @@
     service projects.
 </p>
 
+<!-- Add Organization Button -->
+<p>
+    <a href="/new-organization" class="button">
+        ➕ Add Organization
+    </a>
+</p>
+
 <div class="features">
 
-<% organizations.forEach(org => { %>
+    <% organizations.forEach(org => { %>
 
-<div class="card">
+    <div class="card">
 
-    <img
-        src="/images/<%= org.logo_filename %>"
-        alt="<%= org.name %> Logo"
-        class="organization-image"
-    >
+        <img
+            src="/images/<%= org.logo_filename %>"
+            alt="<%= org.name %> Logo"
+            class="organization-image"
+        >
 
-    <h3>
-        <a href="/organization/<%= org.organization_id %>">
-            <%= org.name %>
-        </a>
-    </h3>
+        <h3>
+            <a href="/organization/<%= org.organization_id %>">
+                <%= org.name %>
+            </a>
+        </h3>
 
-    <p>
-        <strong>Description:</strong><br>
-        <%= org.description %>
-    </p>
+        <p>
+            <strong>Description:</strong><br>
+            <%= org.description %>
+        </p>
 
-    <p>
-        <strong>Contact Email:</strong><br>
-        <%= org.contact_email %>
-    </p>
+        <p>
+            <strong>Contact Email:</strong><br>
+            <%= org.contact_email %>
+        </p>
 
-    <p>
-        <a class="button" href="/organization/<%= org.organization_id %>">
-            View Organization
-        </a>
-    </p>
+        <div class="actions">
 
-</div>
+            <a class="button" href="/organization/<%= org.organization_id %>">
+                View Organization
+            </a>
 
-<% }) %>
+            <a class="button" href="/edit-organization/<%= org.organization_id %>">
+                ✏️ Edit Organization
+            </a>
+
+        </div>
+
+    </div>
+
+    <% }) %>
 
 </div>
 

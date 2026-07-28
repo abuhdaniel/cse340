@@ -16,9 +16,27 @@
     </p>
 
     <p>
-        <strong>Contact Email:</strong>
+        <strong>Contact Email:</strong><br>
         <%= organization.contact_email %>
     </p>
+
+</div>
+
+<hr>
+
+<div class="actions">
+
+    <a href="/edit-organization/<%= organization.organization_id %>" class="button">
+        ✏️ Edit Organization
+    </a>
+
+    <a href="/new-project" class="button">
+        ➕ Add Project
+    </a>
+
+    <a href="/organizations" class="button secondary">
+        ⬅ Back to Organizations
+    </a>
 
 </div>
 

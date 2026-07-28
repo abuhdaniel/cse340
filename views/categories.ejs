@@ -7,31 +7,44 @@
     and community initiatives.
 </p>
 
+<p>
+    <a href="/new-category" class="button">
+        ➕ Add Category
+    </a>
+</p>
+
 <div class="features">
 
-<% categories.forEach(category => { %>
+    <% categories.forEach(category => { %>
 
-<div class="card">
+    <div class="card">
 
-    <h3>
-        <a href="/category/<%= category.category_id %>">
-            <%= category.name %>
-        </a>
-    </h3>
+        <h3>
+            <a href="/category/<%= category.category_id %>">
+                <%= category.name %>
+            </a>
+        </h3>
 
-    <p>
-        Explore projects related to <strong><%= category.name %></strong>.
-    </p>
+        <p>
+            Explore projects related to
+            <strong><%= category.name %></strong>.
+        </p>
 
-    <p>
-        <a class="button" href="/category/<%= category.category_id %>">
-            View Projects
-        </a>
-    </p>
+        <div class="actions">
 
-</div>
+            <a class="button" href="/category/<%= category.category_id %>">
+                View Projects
+            </a>
 
-<% }) %>
+            <a class="button" href="/edit-category/<%= category.category_id %>">
+                ✏️ Edit Category
+            </a>
+
+        </div>
+
+    </div>
+
+    <% }) %>
 
 </div>
 

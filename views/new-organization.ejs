@@ -36,6 +36,7 @@
     <textarea
         id="description"
         name="description"
+        rows="5"
         required
     ><%= organization?.description || '' %></textarea>
 
@@ -51,23 +52,15 @@
         value="<%= organization?.contact_email || '' %>"
     >
 
-    <label for="logo_filename">
-        Logo Filename
-    </label>
-
-    <input
-        type="text"
-        id="logo_filename"
-        name="logo_filename"
-        required
-        value="<%= organization?.logo_filename || '' %>"
-    >
-
     <br><br>
 
     <button class="button" type="submit">
         Create Organization
     </button>
+
+    <a href="/organizations" class="button secondary">
+        Cancel
+    </a>
 
 </form>
 

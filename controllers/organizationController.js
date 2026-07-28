@@ -21,6 +21,7 @@ const buildOrganizationList = async (req, res) => {
     });
   } catch (error) {
     console.error(error);
+
     res.status(500).render("500", {
       title: "Server Error",
       error,
@@ -75,7 +76,6 @@ const buildNewOrganization = (req, res) => {
  * Create Organization
  */
 const addOrganization = async (req, res) => {
-
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
@@ -87,13 +87,14 @@ const addOrganization = async (req, res) => {
   }
 
   try {
-
     const {
       name,
       description,
       contact_email,
-      logo_filename,
     } = req.body;
+
+    // Default image for newly created organizations
+    const logo_filename = "default.png";
 
     await createOrganization(
       name,
@@ -102,12 +103,13 @@ const addOrganization = async (req, res) => {
       logo_filename
     );
 
-    req.flash("success", "Organization created successfully.");
+    req.flash(
+      "success",
+      "Organization created successfully."
+    );
 
     res.redirect("/organizations");
-
   } catch (error) {
-
     console.error(error);
 
     res.render("new-organization", {
@@ -115,7 +117,6 @@ const addOrganization = async (req, res) => {
       organization: req.body,
       errors: [{ msg: "Unable to create organization." }],
     });
-
   }
 };
 
@@ -123,9 +124,7 @@ const addOrganization = async (req, res) => {
  * Display Edit Organization Form
  */
 const buildEditOrganization = async (req, res) => {
-
   try {
-
     const organization = await getOrganizationById(req.params.id);
 
     if (!organization) {
@@ -139,16 +138,13 @@ const buildEditOrganization = async (req, res) => {
       organization,
       errors: [],
     });
-
   } catch (error) {
-
     console.error(error);
 
     res.status(500).render("500", {
       title: "Server Error",
       error,
     });
-
   }
 };
 
@@ -156,11 +152,9 @@ const buildEditOrganization = async (req, res) => {
  * Update Organization
  */
 const editOrganization = async (req, res) => {
-
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
-
     return res.render("edit-organization", {
       title: "Edit Organization",
       organization: {
@@ -169,11 +163,9 @@ const editOrganization = async (req, res) => {
       },
       errors: errors.array(),
     });
-
   }
 
   try {
-
     const {
       name,
       description,
@@ -189,12 +181,13 @@ const editOrganization = async (req, res) => {
       logo_filename
     );
 
-    req.flash("success", "Organization updated successfully.");
+    req.flash(
+      "success",
+      "Organization updated successfully."
+    );
 
     res.redirect(`/organization/${req.params.id}`);
-
   } catch (error) {
-
     console.error(error);
 
     res.render("edit-organization", {
@@ -205,7 +198,6 @@ const editOrganization = async (req, res) => {
       },
       errors: [{ msg: "Unable to update organization." }],
     });
-
   }
 };
 

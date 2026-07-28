@@ -4,41 +4,74 @@
 
 <p>Browse our current and upcoming service projects.</p>
 
+<div class="actions">
+    <a href="/new-project" class="button">
+        ➕ Add Project
+    </a>
+</div>
+
+<% if (projects.length > 0) { %>
+
 <div class="features">
 
-<% projects.forEach(project => { %>
+    <% projects.forEach(project => { %>
 
-<div class="card">
+    <div class="card">
 
-    <h3>
-        <a href="/project/<%= project.project_id %>">
-            <%= project.name %>
-        </a>
-    </h3>
+        <h3>
+            <a href="/project/<%= project.project_id %>">
+                <%= project.name %>
+            </a>
+        </h3>
 
-    <p><strong>Description:</strong> <%= project.description %></p>
+        <p>
+            <strong>Description:</strong><br>
+            <%= project.description %>
+        </p>
 
-    <p><strong>Location:</strong> <%= project.location %></p>
+        <p>
+            <strong>Location:</strong>
+            <%= project.location %>
+        </p>
 
-    <p>
-        <strong>Date:</strong>
-        <%= new Date(project.project_date).toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "long",
-            day: "numeric"
-        }) %>
-    </p>
+        <p>
+            <strong>Project Date:</strong>
+            <%= new Date(project.project_date).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric"
+            }) %>
+        </p>
 
-    <p>
-        <a class="button" href="/project/<%= project.project_id %>">
-            View Project Details
-        </a>
-    </p>
+        <div class="actions">
+
+            <a class="button"
+               href="/project/<%= project.project_id %>">
+                View Project
+            </a>
+
+            <a class="button"
+               href="/edit-project/<%= project.project_id %>">
+                Edit Project
+            </a>
+
+            <a class="button"
+               href="/assign-categories/<%= project.project_id %>">
+                Assign Categories
+            </a>
+
+        </div>
+
+    </div>
+
+    <% }) %>
 
 </div>
 
-<% }) %>
+<% } else { %>
 
-</div>
+<p>No projects have been added yet.</p>
+
+<% } %>
 
 <%- include("partials/footer") %>

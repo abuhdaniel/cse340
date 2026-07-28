@@ -32,6 +32,7 @@
     <textarea
         id="description"
         name="description"
+        rows="5"
         required
     ><%= organization.description %></textarea>
 
@@ -45,7 +46,7 @@
         value="<%= organization.contact_email %>"
     >
 
-    <label for="logo_filename">Logo Filename</label>
+    <label for="logo_filename">Image URL</label>
 
     <input
         type="text"
@@ -61,12 +62,11 @@
         Update Organization
     </button>
 
-</form>
-
-<p>
-    <a class="button" href="/organization/<%= organization.organization_id %>">
+    <a class="button secondary"
+       href="/organization/<%= organization.organization_id %>">
         Cancel
     </a>
-</p>
+
+</form>
 
 <%- include("partials/footer") %>

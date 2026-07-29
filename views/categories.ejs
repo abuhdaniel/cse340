@@ -7,11 +7,16 @@
     and community initiatives.
 </p>
 
+<!-- Admin Only -->
+<% if (user && user.role === "admin") { %>
+
 <p>
     <a href="/new-category" class="button">
         ➕ Add Category
     </a>
 </p>
+
+<% } %>
 
 <div class="features">
 
@@ -36,9 +41,14 @@
                 View Projects
             </a>
 
+            <!-- Admin Only -->
+            <% if (user && user.role === "admin") { %>
+
             <a class="button" href="/edit-category/<%= category.category_id %>">
                 ✏️ Edit Category
             </a>
+
+            <% } %>
 
         </div>
 

@@ -10,24 +10,42 @@ import {
 } from "../controllers/organizationController.js";
 
 import { organizationRules } from "../utilities/organization-validation.js";
+import { requireRole } from "../utilities/authMiddleware.js";
 
 const router = express.Router();
 
+// Public Routes
 router.get("/organizations", buildOrganizationList);
 router.get("/organization/:id", buildOrganizationDetail);
 
-// Create Organization
-router.get("/new-organization", buildNewOrganization);
+// ========================================
+// Create Organization (Admin Only)
+// ========================================
+router.get(
+  "/new-organization",
+  requireRole("admin"),
+  buildNewOrganization
+);
+
 router.post(
   "/new-organization",
+  requireRole("admin"),
   organizationRules(),
   addOrganization
 );
 
-// Edit Organization
-router.get("/edit-organization/:id", buildEditOrganization);
+// ========================================
+// Edit Organization (Admin Only)
+// ========================================
+router.get(
+  "/edit-organization/:id",
+  requireRole("admin"),
+  buildEditOrganization
+);
+
 router.post(
   "/edit-organization/:id",
+  requireRole("admin"),
   organizationRules(),
   editOrganization
 );

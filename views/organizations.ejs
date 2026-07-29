@@ -7,12 +7,16 @@
     service projects.
 </p>
 
-<!-- Add Organization Button -->
+<!-- Admin Only: Add Organization -->
+<% if (user && user.role === "admin") { %>
+
 <p>
     <a href="/new-organization" class="button">
         ➕ Add Organization
     </a>
 </p>
+
+<% } %>
 
 <div class="features">
 
@@ -48,9 +52,13 @@
                 View Organization
             </a>
 
+            <% if (user && user.role === "admin") { %>
+
             <a class="button" href="/edit-organization/<%= org.organization_id %>">
                 ✏️ Edit Organization
             </a>
+
+            <% } %>
 
         </div>
 

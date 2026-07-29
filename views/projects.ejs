@@ -4,11 +4,14 @@
 
 <p>Browse our current and upcoming service projects.</p>
 
+<!-- Admin Only -->
+<% if (user && user.role === "admin") { %>
 <div class="actions">
     <a href="/new-project" class="button">
         ➕ Add Project
     </a>
 </div>
+<% } %>
 
 <% if (projects.length > 0) { %>
 
@@ -50,15 +53,20 @@
                 View Project
             </a>
 
+            <!-- Admin Only -->
+            <% if (user && user.role === "admin") { %>
+
             <a class="button"
                href="/edit-project/<%= project.project_id %>">
-                Edit Project
+                ✏️ Edit Project
             </a>
 
             <a class="button"
                href="/assign-categories/<%= project.project_id %>">
-                Assign Categories
+                🏷️ Assign Categories
             </a>
+
+            <% } %>
 
         </div>
 

@@ -14,56 +14,70 @@ import {
 } from "../controllers/projectController.js";
 
 import { projectRules } from "../utilities/project-validation.js";
+import { requireRole } from "../utilities/authMiddleware.js";
 
 /*
- * Project List
+ * Project List (Public)
  */
 router.get("/projects", buildProjectList);
 
 /*
- * Individual Project
+ * Individual Project (Public)
  */
 router.get("/project/:id", buildProjectDetail);
 
 /*
- * Create Project
+ * Create Project (Admin Only)
  */
-router.get("/new-project", buildNewProject);
+router.get(
+  "/new-project",
+  requireRole("admin"),
+  buildNewProject
+);
 
 router.post(
   "/new-project",
+  requireRole("admin"),
   projectRules(),
   addProject
 );
 
 /*
- * Edit Project
+ * Edit Project (Admin Only)
  */
 router.get(
   "/edit-project/:id",
+  requireRole("admin"),
   buildEditProject
 );
 
 router.post(
   "/edit-project/:id",
+  requireRole("admin"),
   projectRules(),
   editProject
 );
 
 /*
- * Assign Categories
+ * Assign Categories (Admin Only)
  */
 router.get(
   "/assign-categories/:id",
+  requireRole("admin"),
   buildAssignCategories
 );
 
 router.post(
   "/assign-categories/:id",
+  requireRole("admin"),
   assignCategories
 );
 
-export default router;
+/*
+ * Test Route
+ */
 router.get("/test-project", (req, res) => {
   res.send("Project Route Working");
 });
+
+export default router;

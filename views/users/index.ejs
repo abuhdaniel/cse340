@@ -1,0 +1,59 @@
+<%- include("../partials/header") %>
+
+<section class="hero">
+    <h2>Registered Users</h2>
+
+    <p>
+        This page is only accessible to administrators.
+    </p>
+</section>
+
+<section class="card">
+
+    <% if (users.length === 0) { %>
+
+        <p>No users have been registered yet.</p>
+
+    <% } else { %>
+
+        <table class="users-table">
+
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Registered</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <% users.forEach(user => { %>
+
+                    <tr>
+                        <td><%= user.user_name %></td>
+                        <td><%= user.user_email %></td>
+                        <td><%= user.user_role %></td>
+                        <td>
+                            <%= new Date(user.created_at).toLocaleDateString() %>
+                        </td>
+                    </tr>
+
+                <% }) %>
+
+            </tbody>
+
+        </table>
+
+    <% } %>
+
+    <br>
+
+    <a href="/dashboard" class="btn">
+        Back to Dashboard
+    </a>
+
+</section>
+
+<%- include("../partials/footer") %>

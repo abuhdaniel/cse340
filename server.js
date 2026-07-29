@@ -9,6 +9,8 @@ import flash from "connect-flash";
 import organizationRoutes from "./routes/organizationRoute.js";
 import projectRoutes from "./routes/projectRoute.js";
 import categoryRoutes from "./routes/categoryRoute.js";
+import authRoutes from "./routes/authRoute.js";
+import userRoutes from "./routes/userRoute.js";
 
 dotenv.config();
 
@@ -35,6 +37,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // --------------------------------------------------
+// Trust Proxy (Required for deployment platforms like Render)
+// --------------------------------------------------
+app.set("trust proxy", 1);
+
+// --------------------------------------------------
 // Session
 // --------------------------------------------------
 app.use(
@@ -42,6 +49,11 @@ app.use(
     secret: process.env.SESSION_SECRET || "cse340-secret-key",
     resave: false,
     saveUninitialized: false,
+    cookie: {
+      maxAge: 1000 * 60 * 60, // 1 hour
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+    },
   })
 );
 
@@ -50,10 +62,14 @@ app.use(
 // --------------------------------------------------
 app.use(flash());
 
-// Make flash messages available to all EJS views
+// --------------------------------------------------
+// Global Variables Available in All Views
+// --------------------------------------------------
 app.use((req, res, next) => {
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
+  res.locals.user = req.session.user || null;
+
   next();
 });
 
@@ -72,6 +88,8 @@ app.get("/", (req, res) => {
 app.use("/", organizationRoutes);
 app.use("/", projectRoutes);
 app.use("/", categoryRoutes);
+app.use("/", authRoutes);
+app.use("/", userRoutes);
 
 // --------------------------------------------------
 // 404 Handler

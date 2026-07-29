@@ -1,0 +1,55 @@
+<%- include("../partials/header") %>
+
+<section class="hero">
+
+    <h2>Dashboard</h2>
+
+    <p>
+        Welcome,
+        <strong><%= user.name %></strong>
+    </p>
+
+    <p>
+        Logged in as:
+        <strong><%= user.role %></strong>
+    </p>
+
+</section>
+
+<section class="features">
+
+    <div class="card">
+
+        <h3>Account</h3>
+
+        <p>
+            Manage your account and access protected pages.
+        </p>
+
+        <a href="/logout" class="btn">
+            Logout
+        </a>
+
+    </div>
+
+    <% if (user.role === "admin") { %>
+
+    <div class="card">
+
+        <h3>Administration</h3>
+
+        <p>
+            View all registered users.
+        </p>
+
+        <a href="/users" class="btn">
+            Registered Users
+        </a>
+
+    </div>
+
+    <% } %>
+
+</section>
+
+<%- include("../partials/footer") %>
